@@ -1,7 +1,11 @@
 package com.fleshkart.app;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -16,8 +20,22 @@ import android.view.MenuItem;
 
 import com.fleshkart.app.gcm.GcmRegistrationAsyncTask;
 
+import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    File destination;
+    Uri selectedImage;
+    public static String selectedPath1 = "NONE";
+    private static final int PICK_Camera_IMAGE = 2;
+    private static final int SELECT_FILE1 = 1;
+    public static Bitmap bmpScale;
+    public static String imagePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +106,22 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            // Create an instance of SimpleDateFormat used for formatting
+            // the string representation of date (month/day/year)
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
+            // Get the date today using Calendar object.
+            Date today = Calendar.getInstance().getTime();
+
+            String name = df.format(today);
+            destination = new File(Environment
+                    .getExternalStorageDirectory(), name + ".jpg");
+
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT,
+                    Uri.fromFile(destination));
+            startActivityForResult(intent, PICK_Camera_IMAGE);
         } else if (id == R.id.nav_gallery) {
+            openGallery(SELECT_FILE1);
 
         } else if (id == R.id.nav_slideshow) {
 
@@ -108,4 +140,15 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void openGallery(int selectFile1) {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(
+                Intent.createChooser(intent, "Select file to upload "),
+                selectFile1);
+    }
+
+
 }
