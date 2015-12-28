@@ -1,5 +1,6 @@
 package com.fleshkart.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -72,6 +73,10 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.action_login) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            this.startActivity(intent);
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -92,8 +97,11 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_gcm_reg) {
             new GcmRegistrationAsyncTask(this).execute();
+        } else if (id == R.id.nav_map) {
+            Intent intent = new Intent(this, MapsActivity.class);
+            this.startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

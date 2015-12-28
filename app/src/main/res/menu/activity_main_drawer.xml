@@ -27,9 +27,14 @@
                 android:icon="@drawable/ic_menu_share"
                 android:title="Share" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_gcm_reg"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="@string/nav_gcm" />
+
+            <item
+                android:id="@+id/nav_map"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/nav_map_picker" />
         </menu>
     </item>
 
