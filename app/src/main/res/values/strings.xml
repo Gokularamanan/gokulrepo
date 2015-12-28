@@ -25,4 +25,5 @@
     <!-- Strings related to nav -->
     <string name="nav_map_picker">Map picker</string>
     <string name="nav_gcm">GCM Reg</string>
+    <string name="title_activity_main2">ReceiveActivity</string>
 </resources>
