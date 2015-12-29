@@ -18,7 +18,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.fleshkart.app.camera.CameraPhotoCapture;
 import com.fleshkart.app.gcm.GcmRegistrationAsyncTask;
+import com.fleshkart.app.map.MapPickerFragment;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -106,20 +108,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Create an instance of SimpleDateFormat used for formatting
-            // the string representation of date (month/day/year)
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
-            // Get the date today using Calendar object.
-            Date today = Calendar.getInstance().getTime();
-
-            String name = df.format(today);
-            destination = new File(Environment
-                    .getExternalStorageDirectory(), name + ".jpg");
-
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT,
-                    Uri.fromFile(destination));
-            startActivityForResult(intent, PICK_Camera_IMAGE);
+            Intent intent = new Intent(this, CameraPhotoCapture.class);
+            this.startActivity(intent);
         } else if (id == R.id.nav_gallery) {
             openGallery(SELECT_FILE1);
 
@@ -133,6 +123,9 @@ public class MainActivity extends AppCompatActivity
             new GcmRegistrationAsyncTask(this).execute();
         } else if (id == R.id.nav_map) {
             Intent intent = new Intent(this, MapsActivity.class);
+            this.startActivity(intent);
+        } else if (id == R.id.nav_mapfragment) {
+            Intent intent = new Intent(this, LocationPickerActivity.class);
             this.startActivity(intent);
         }
 
